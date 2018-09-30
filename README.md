@@ -1,6 +1,35 @@
-frontend-nanodegree-arcade-game
+Arcade-game
 ===============================
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+Arcade Game
+This was a project started for the Front End Nanodegree so generoulsy offered through Udacity. It is a simple game that requires players to get to the other side of the board without encountering a giant hissing cockroach.  Using the arrow keys, you can go up, down, left, right within the canvas.  
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+Table of Contents
+[About the Concept](#about the concept)
+Contributing
+Notes
+Instructions
+Clone or download the repository. Open the index.html file into a browser. Play the game!
+
+The starter code came from Udacity Front end Nanodegree program project 'Arcade-Game'.
+
+https://github.com/BonitaBlack/frontend-nanodegree-arcade-game.git
+
+About the concept
+This project is by Udacity for the students enrolled on Front-End Web Developer Course. This program requires HTML, CSS, and JavaScript to run the game.
+
+Contributing
+The starter code was from a repository for all Udacity students. Therefore, Udacity most likely will not accept pull requests, however if you would like to contribute to my repository on gitHub, please do so on https://github.com/BonitaBlack/frontend-nanodegree-arcade-game.git where you are welcome to initiate pull requests.
+
+Here are some ways you can contribute:
+
+by reporting bugs by suggesting new features by writing or editing documentation by writing specifications by writing code ( fix or add js files, add comments, modifiyng styles) Submitting a Pull Request Fork the official repository https://github.com/BonitaBlack/frontend-nanodegree-arcade-game.git Create a topic branch. Implement your feature or bug fix. Add, commit, and push your changes. Submit a pull request.
+
+NOTES
+For Udacity Students If you are one of Udacity students:
+
+Feel free to copy this project and use it, BUT remember that the main GOAL is to learn how you can do projects by yourself. This is not the only or even best one, there are many ways to achieve the same results. 
+
+For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+
+THANK YOU ...
