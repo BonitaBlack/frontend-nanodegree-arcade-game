@@ -52,6 +52,9 @@ var Player = function()
   this.x = beginX;
   this.y = beginY;
   this.sprite = 'images/char-cat-girl.png';
+  this.score = 0;
+  this.highScore = 0;
+  this.lives = 3;
 };
 
 //create the ends of places where the player can go and can't go
@@ -73,7 +76,10 @@ Player.prototype.update = function()
   else if (this.y < 0)
   {
     this.reset();
+    this.score = this.score + 1;
   }
+
+
 };
 
 //reset function to start over
@@ -87,6 +93,12 @@ Player.prototype.reset = function()
 Player.prototype.render = function()
 {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  ctx.fillText("Score: " + this.score, 0, 40);
+    // Draw lives on the top right
+    ctx.fillText("Lives: " + this.lives, 404, 40);
+    // High score during gaming session
+    if(this.score > this.highScore) this.highScore = this.score;
+    ctx.fillText("High Score: " + this.highScore, 202, 40);
 };
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
