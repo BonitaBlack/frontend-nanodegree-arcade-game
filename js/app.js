@@ -1,8 +1,12 @@
 //grid taken fromhttp://blog.sklambert.com/html5-canvas-game-2d-collision-detection#d-collision-detection
 var gridY = 83;
 var gridX = 101;
-var gridTop = 20;
+var gridTop = 50;
 var gridBottom = 20;
+var maxMoveUp = 0 * gridY + gridTop;
+var maxMoveDown = 5 * gridY - gridBottom;
+var maxMoveLeft = 0;
+var maxMoveRight = 4 * gridX;
 // box Adjustment
 var boxRight = 83;
 var boxLeft = 18;
@@ -13,6 +17,10 @@ var enemyRight = 98;
 var enemyLeft = 3;
 var enemyTop = 81;
 var enemyBottom = 132;
+
+//beginning
+var beginX = gridX*2;
+var beginY = gridY*5 -gridBottom;
 
 //check if objects touching
 function intersect(enemy, player)
@@ -47,6 +55,7 @@ var Enemy = function(x, y, speeds, boxRight, boxLeft, boxTop, boxBottom)
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
+Enemy.prototype.constructor = Enemy;
 Enemy.prototype.update = function(dt)
 {
   this.x +=this.speeds *dt;
@@ -81,13 +90,15 @@ Enemy.prototype.reset = function()
 // a handleInput() method.
 
 // Beggining coordinates for player
-var beginX = 200;
-var beginY = 400;
+//var beginX = 200;
+//var beginY = 400;
 
 var Player = function(x, y, boxRight, boxLeft, boxTop, boxBottom)
 {
-  this.x = beginX;
-  this.y = beginY;
+  //this.x = beginX;
+  //this.y = beginY;
+  this.x = x;
+  this.y = y;
   this.sprite = 'images/char-cat-girl.png';
   this.alive = true;
   this.score = 0;
@@ -102,7 +113,26 @@ var Player = function(x, y, boxRight, boxLeft, boxTop, boxBottom)
   this.top = this.y + this.boxTop;
   this.bottom = this.y + this.boxBottom;
 };
-
+//Player.prototype.constructor = Player;
+Player.prototype.handleInput = function(keyCode)
+{
+  if(keyCode == 'up' && this.y > maxMoveUp)
+  {
+    this.y = this.y - gridY;
+  }
+    else if(keyCode == 'down' &&  this.y < maxMoveDown)
+    {
+      this.y = this.y + gridY;
+    }
+   else if(keyCode == 'left' && this.x > maxMoveLeft)
+   {
+     this.x = this.x - gridX;
+   }
+    else if(keyCode == 'right' && this.x < maxMoveRight)
+    {
+      this.x = this.x + gridX;
+    }
+};
 //create the ends of places where the player can go and can't go
 
 Player.prototype.update = function()
@@ -113,24 +143,24 @@ Player.prototype.update = function()
     this.y = beginY;
     this.score = this.score + 1;
   }
-  if (this.x < 0)
-  {
-    this.x=0;
-  }
-  else if (this.x > 400)
-  {
-    this.x = 400;
-  }
-  else if (this.y > 400)
-  {
-    this.y = 400;
-  }
-
- if(this.alive === false)
+  if(this.alive === false)
     {
-    player.reset();
+
        this.alive = true;
-       this.lives = this.lives - 1;
+       player.reset();
+
+       if(this.lives === 0)
+       {
+         this.score =0;
+         //this.lives =3;
+         player.reset();
+       }
+       else
+       {
+         this.lives = this.lives - 1;
+         player.reset();
+       }
+
      }
 };
 
@@ -140,28 +170,34 @@ Player.prototype.reset = function()
 {
   this.x = beginX;
   this.y = beginY;
+  this.lives = 3;
 };
 
 Player.prototype.render = function()
 {
-  ctx.clearRect(0, 20, 505, 25);
+
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  ctx.fillText("Score: " + this.score, 0, 40);
+
+};
+Player.prototype.renderStatus = function ()
+{
+  ctx.clearRect(0, 20, 505, 25);
+  ctx.fillText('Score: ' + this.score, 0, 40);
     // Draw lives on the top right
-    ctx.fillText("Lives: " + this.lives, 404, 40);
+    ctx.fillText('Lives: ' + this.lives, 404, 40);
     // High score during gaming session
     if(this.score > this.highScore) this.highScore = this.score;
-    ctx.fillText("High Score: " + this.highScore, 202, 40);
-};
+    ctx.fillText('High Score: ' + this.highScore, 202, 40);
+}
 
 Player.prototype.checkCollisions= function(allEnemies)
 {
-  var self = this;
+  //var self = this;
   allEnemies.forEach(function(enemy)
 {
-  if (intersect(enemy, self))
+  if (intersect(enemy, player))
   {
-    self.alive = false;
+    player.alive = false;
   }
 })
 
@@ -218,5 +254,19 @@ Player.prototype.handleInput = function(key)
     default:
     break;
   }
+};
+Enemy.prototype.updateBox = function()
+{
+  this.right = this.x + this.boxRight;
+    this.left = this.x + this.boxLeft;
+    this.top = this.y + this.boxTop;
+    this.bottom = this.y + this.boxBottom;
+};
+Player.prototype.updateBox = function()
+{
+  this.right = this.x + this.boxRight;
+    this.left = this.x + this.boxLeft;
+    this.top = this.y + this.boxTop;
+    this.bottom = this.y + this.boxBottom;
 };
 //collision checkCollisions
